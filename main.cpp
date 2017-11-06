@@ -8,25 +8,39 @@
 using namespace std;
 int main(int argc, char* argv[])
 
-struct Probka
-{
-    double x1, x2;
-    string linia;
-    typedef pair <double,double> Probka;
-    ifstream plik("sygnal.csv");
-    vector <Probka> dane;
-    while (getline(plik, linia))
-    {
-        stringstream ss(linia);
-        ss >> x1;
-        ss.ignore();
-        ss >> x2;
-dane.push_back(Probka(x1, x2));
+struct Probka {
+ double t;
+ double x;
 
+ Probka(double _t,double _x)
+ {
+     t= _t;
+     x= _x;
+ }
+};
+
+    vector <Probka> wczytaj (string nazwa)
+    {
+     vector <Probka> tablica;
+     ifstream plik("sygnal.csv");
+
+     string linia;
+     while(getline(plik,linia))
+     {
+
+        stringstream ss(linia);
+         double _t, _x;
+         ss >> _t;
+         ss.ignore();
+         ss >> _x;
+
+        tablica.push_back (Probka(_t,_x)) ;
+
+     }
+     plik.close();
+
+    return tablica;
     }
-    plik.close();
-    return dane;
-}
 
 void wyswietl (const vector<Probka>& dane)
 {
